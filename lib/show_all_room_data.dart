@@ -46,7 +46,7 @@ class _RoomdataPageState extends State<RoomdataPage> {
       if (response.statusCode == 200) {
         debugPrint('Hotel deleted successfully');
         setState(() {
-          _rooms.removeWhere((hotel) => hotel['room_id'] == roomId);
+          _rooms.removeWhere((room) => room['room_id'] == roomId);
         });
       } else {
         debugPrint(

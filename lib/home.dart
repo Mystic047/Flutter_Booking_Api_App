@@ -10,6 +10,7 @@ import 'register.dart';
 import 'show_all_hotel_data.dart';
 import 'show_all_room_data.dart';
 import 'session.dart'; // Import session.dart
+import 'show_all_booking_data.dart';
 
 class HomePage extends StatefulWidget {
   final String email;
@@ -161,6 +162,18 @@ class _HomePageState extends State<HomePage> {
                           builder: (context) => const BookingDataPage()));
                 },
                 child: const Text('Add Booking data'),
+              ),
+            ),
+                Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const BookingdataPageShow()));
+                },
+                child: const Text('Fetch Booking data'),
               ),
             ),
           ],
