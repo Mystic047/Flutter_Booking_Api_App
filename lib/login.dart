@@ -122,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                       auth();
                     }
                   },
-                  child: const Text('Login'),
+                  child: const Text('Logins'),
                 ),
               ),
             ],
