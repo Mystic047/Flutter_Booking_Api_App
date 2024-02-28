@@ -67,9 +67,9 @@ class _BookingEditPageState extends State<BookingEditPage> {
       double totalPrice,
       String status) async {
     if (kDebugMode) {
-      print('Updating Booking with ID: $userId');
+      print('Updating Booking with ID: $bookingId');
     }
-    var url = Uri.parse('http://localhost:3000/api_update/update/$userId');
+    var url = Uri.parse('http://localhost:3000/api_update/updateBooking/$bookingId');
 
     try {
       var response = await http.put(
