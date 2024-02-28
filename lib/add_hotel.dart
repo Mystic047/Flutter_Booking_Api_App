@@ -23,8 +23,7 @@ class _AddhotelState extends State<Addhotel> {
   @override
   void initState() {
     super.initState();
-    double initialValue =
-        0.0; // Define the initialValue here or pass it from the widget if needed.
+    double initialValue = 0.0;
     _ratingController =
         TextEditingController(text: initialValue.toStringAsFixed(2));
   }
@@ -44,8 +43,7 @@ class _AddhotelState extends State<Addhotel> {
 
   Future<void> submitHotelData() async {
     var logger = Logger();
-    var url = Uri.parse(
-        'http://localhost:3000/api_add/hotel'); // Adjust the URL as needed
+    var url = Uri.parse('http://localhost:3000/api_add/hotel');
 
     try {
       var response = await http.post(
@@ -59,22 +57,18 @@ class _AddhotelState extends State<Addhotel> {
           'state': _stateController.text,
           'country': _countryController.text,
           'zip_code': _zipCodeController.text,
-          'rating':
-              _ratingController.text, // Ensure rating is acceptable format
+          'rating': _ratingController.text,
         }),
       );
 
       if (response.statusCode == 200) {
         logger.d('Hotel data submitted successfully');
-        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Hotel added successfully')),
         );
-        // ignore: use_build_context_synchronously
         Navigator.of(context).pop();
       } else {
         logger.w('Failed to submit hotel data: ${response.body}');
-        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
               content: Text('Failed to add hotel. Please try again.')),
@@ -82,7 +76,6 @@ class _AddhotelState extends State<Addhotel> {
       }
     } catch (e) {
       logger.e('Error submitting hotel data: $e');
-      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('An error occurred. Please try again.')),
       );
@@ -109,6 +102,20 @@ class _AddhotelState extends State<Addhotel> {
               key: _formKey,
               child: Column(
                 children: [
+                  // Background Image
+                  Container(
+                    height: 150,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(
+                            'https://www.infoquest.co.th/wp-content/uploads/2022/11/20221109_canva_%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B9%81%E0%B8%A3%E0%B8%A1-%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%9E%E0%B8%B1%E0%B8%81-Hotel-1.png'),
+                        fit: BoxFit.cover,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+
+                  // Form Fields
                   TextFormField(
                     controller: _nameController,
                     decoration: const InputDecoration(labelText: 'Hotel Name'),
