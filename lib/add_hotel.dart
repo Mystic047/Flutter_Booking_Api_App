@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, duplicate_ignore
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert'; // For using json.encode
@@ -63,6 +65,7 @@ class _AddhotelState extends State<Addhotel> {
 
       if (response.statusCode == 200) {
         logger.d('Hotel data submitted successfully');
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Hotel added successfully')),
         );
@@ -106,7 +109,7 @@ class _AddhotelState extends State<Addhotel> {
                   Container(
                     height: 150,
                     decoration: BoxDecoration(
-                      image: DecorationImage(
+                      image: const DecorationImage(
                         image: NetworkImage(
                             'https://www.infoquest.co.th/wp-content/uploads/2022/11/20221109_canva_%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B9%81%E0%B8%A3%E0%B8%A1-%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%9E%E0%B8%B1%E0%B8%81-Hotel-1.png'),
                         fit: BoxFit.cover,

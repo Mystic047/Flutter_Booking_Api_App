@@ -17,6 +17,7 @@ class HomePage extends StatefulWidget {
   const HomePage({Key? key, required this.email}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _HomePageState createState() => _HomePageState();
 }
 
@@ -69,7 +70,7 @@ class _HomePageState extends State<HomePage> {
         title: Text(Session.firstName),
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: NetworkImage(
                 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/22/25/ce/ea/kingsford-hotel-manila.jpg?w=1200&h=-1&s=1'),
