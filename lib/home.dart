@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_booking/add_booking.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'show_all_user_data.dart';
@@ -9,7 +8,7 @@ import 'add_room.dart';
 import 'register.dart';
 import 'show_all_hotel_data.dart';
 import 'show_all_room_data.dart';
-import 'session.dart'; // Import session.dart
+import 'session.dart';
 import 'show_all_booking_data.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,12 +17,12 @@ class HomePage extends StatefulWidget {
   const HomePage({Key? key, required this.email}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   String userName = 'Loading...';
+
   @override
   void initState() {
     super.initState();
@@ -69,114 +68,123 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(Session.firstName),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'Welcome to Your Home Page!',
-              style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'This is a simple home page built with Flutter.',
-              style: TextStyle(fontSize: 16.0),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const UserdataPage()));
-                },
-                child: const Text('Fetch User data'),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage(
+                'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/22/25/ce/ea/kingsford-hotel-manila.jpg?w=1200&h=-1&s=1'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Text(
+                'ยินดีต้อนรับเข้าสู้หน้าผู้ดูแล',
+                style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const Register()));
-                },
-                child: const Text('Add User data'),
+              const SizedBox(height: 20),
+              const Text(
+                'This is a home page.',
+                style: TextStyle(fontSize: 16.0),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const Addhotel()));
-                },
-                child: const Text('Add Hotels data'),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const UserdataPage()));
+                  },
+                  child: const Text('Fetch User data'),
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const HoteldataPage()));
-                },
-                child: const Text('Fetch Hotels data'),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Register()));
+                  },
+                  child: const Text('Add User data'),
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Addroom()));
-                },
-                child: const Text('Add Rooms data'),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Addhotel()));
+                  },
+                  child: const Text('Add Hotels data'),
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const RoomdataPage()));
-                },
-                child: const Text('Fetch Rooms data'),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HoteldataPage()));
+                  },
+                  child: const Text('Fetch Hotels data'),
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const BookingDataPage()));
-                },
-                child: const Text('Add Booking data'),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const Addroom()));
+                  },
+                  child: const Text('Add Rooms data'),
+                ),
               ),
-            ),
-                Padding(
-              padding: const EdgeInsets.only(top: 20.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const BookingdataPageShow()));
-                },
-                child: const Text('Fetch Booking data'),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const RoomdataPage()));
+                  },
+                  child: const Text('Fetch Rooms data'),
+                ),
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const BookingdataPageShow()));
+                  },
+                  child: const Text('Add Booking data'),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const BookingdataPageShow()));
+                  },
+                  child: const Text('Fetch Booking data'),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
