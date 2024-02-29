@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_booking/Add_Page/add_booking.dart';
-import 'package:flutter_app_booking/Add_Page/add_hotel.dart';
-import 'package:flutter_app_booking/Add_Page/add_room.dart';
-import 'package:flutter_app_booking/Add_Page/register.dart';
-import 'package:flutter_app_booking/Add_Page/add_review.dart' as add_page;
+import 'package:flutter_app_booking/add_booking.dart';
+import 'package:flutter_app_booking/add_hotel.dart';
+import 'package:flutter_app_booking/add_review.dart';
+import 'package:flutter_app_booking/add_room.dart';
+import 'package:flutter_app_booking/register.dart';
+
 import 'package:flutter_app_booking/show_all_user_data.dart';
 
 import 'show_all_hotel_data.dart';
@@ -135,7 +136,7 @@ class AdminDashboardPage extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const add_page.Addreview()));
+                        builder: (context) => const Addreview()));
               },
               onPressed2: () {
                 Navigator.push(context,

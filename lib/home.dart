@@ -1,9 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_booking/Add_Page/add_booking.dart';
-import 'package:flutter_app_booking/Add_Page/add_hotel.dart';
-import 'package:flutter_app_booking/Add_Page/add_room.dart';
-import 'package:flutter_app_booking/Add_Page/register.dart';
+import 'package:flutter_app_booking/add_booking.dart';
+import 'package:flutter_app_booking/add_hotel.dart';
+import 'package:flutter_app_booking/add_room.dart';
+import 'package:flutter_app_booking/register.dart';
+
 
 import 'package:flutter_app_booking/show_all_reviews.data.dart';
 import 'package:http/http.dart' as http;
