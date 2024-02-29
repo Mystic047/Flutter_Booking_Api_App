@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 // ignore: unused_import
-import 'register.dart';
+import 'Add_Page/register.dart';
 import 'login.dart';
 
 void main() {

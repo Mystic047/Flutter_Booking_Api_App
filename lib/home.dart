@@ -1,11 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_booking/Add_Page/add_booking.dart';
+import 'package:flutter_app_booking/Add_Page/add_hotel.dart';
+import 'package:flutter_app_booking/Add_Page/add_room.dart';
+import 'package:flutter_app_booking/Add_Page/register.dart';
+
+import 'package:flutter_app_booking/show_all_reviews.data.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'show_all_user_data.dart';
-import 'add_hotel.dart';
-import 'add_room.dart';
-import 'register.dart';
+
 import 'show_all_hotel_data.dart';
 import 'show_all_room_data.dart';
 import 'session.dart';
@@ -142,8 +146,10 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(top: 20.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const Addroom()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Addroom()));
                   },
                   child: const Text('Add Rooms data'),
                 ),
@@ -167,7 +173,7 @@ class _HomePageState extends State<HomePage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const BookingdataPageShow()));
+                            builder: (context) => const BookingDataPage()));
                   },
                   child: const Text('Add Booking data'),
                 ),
@@ -184,10 +190,33 @@ class _HomePageState extends State<HomePage> {
                   child: const Text('Fetch Booking data'),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Add reviews'),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ReviewdataPage()));
+                  },
+                  child: const Text('Fetch Review data'),
+                ),
+              ),
             ],
           ),
         ),
       ),
     );
   }
+}
+
+class Addreview {
+  const Addreview();
 }
