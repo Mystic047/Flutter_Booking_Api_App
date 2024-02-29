@@ -80,78 +80,110 @@ class _UserEditPageState extends State<UserEditPage> {
       appBar: AppBar(
         title: const Text('Edit User'),
       ),
-      body: Form(
-        key: _formKey,
-        child: ListView(
-          padding: const EdgeInsets.all(16),
-          children: [
-            TextFormField(
-              controller: _emailController,
-              decoration: const InputDecoration(labelText: 'Email'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter an email';
-                }
-                return null;
-              },
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/22/25/ce/ea/kingsford-hotel-manila.jpg?w=1200&h=-1&s=1'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.8), // Set white color with opacity
+              borderRadius: BorderRadius.circular(16.0), // Add border radius
             ),
-            TextFormField(
-              controller: _firstNameController,
-              decoration: const InputDecoration(labelText: 'First Name'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a first name';
-                }
-                return null;
-              },
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Form(
+                key: _formKey,
+                child: ListView(
+                  children: [
+                    TextFormField(
+                      controller: _emailController,
+                      decoration: const InputDecoration(
+                        labelText: 'Email',
+                        labelStyle: TextStyle(fontWeight: FontWeight.bold), // Make label text bold
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter an email';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16), // Add space between fields
+                    TextFormField(
+                      controller: _firstNameController,
+                      decoration: const InputDecoration(
+                        labelText: 'First Name',
+                        labelStyle: TextStyle(fontWeight: FontWeight.bold), // Make label text bold
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a first name';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16), // Add space between fields
+                    TextFormField(
+                      controller: _lastNameController,
+                      decoration: const InputDecoration(
+                        labelText: 'Last Name',
+                        labelStyle: TextStyle(fontWeight: FontWeight.bold), // Make label text bold
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a last name';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16), // Add space between fields
+                    TextFormField(
+                      controller: _phoneNumberController,
+                      decoration: const InputDecoration(
+                        labelText: 'Phone Number',
+                        labelStyle: TextStyle(fontWeight: FontWeight.bold), // Make label text bold
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a phone number';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 24), // Add more space before button
+                    ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          _editUser(
+                            widget.userId,
+                            _emailController.text,
+                            _firstNameController.text,
+                            _lastNameController.text,
+                            _phoneNumberController.text,
+                          ).then((_) {
+                            Navigator.of(context).pop();
+                          }).catchError((error) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Error updating user: $error')),
+                            );
+                          });
+                        }
+                      },
+                      child: const Text('Save'),
+                    ),
+                  ],
+                ),
+              ),
             ),
-            TextFormField(
-              controller: _lastNameController,
-              decoration: const InputDecoration(labelText: 'Last Name'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a last name';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: _phoneNumberController,
-              decoration: const InputDecoration(labelText: 'Phone Number'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a phone number';
-                }
-                return null;
-              },
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // Validate form first
-                if (_formKey.currentState!.validate()) {
-                  _editUser(
-                          widget.userId,
-                          _emailController.text,
-                          _firstNameController.text,
-                          _lastNameController.text,
-                          _phoneNumberController.text)
-                      .then((_) {
-                    // Handle success or error here, if necessary
-                    Navigator.of(context)
-                        .pop(); // Assuming you want to pop on success
-                  }).catchError((error) {
-                    // Handle error
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Error updating user: $error')),
-                    );
-                  });
-                }
-              },
-              child: const Text('Save'),
-            ),
-          ],
+          ),
         ),
       ),
     );
   }
+
 }
