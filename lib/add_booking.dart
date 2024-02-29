@@ -4,7 +4,7 @@ import 'package:flutter_app_booking/session.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 // ignore: duplicate_import
-import 'session.dart';
+import 'package:flutter_app_booking/session.dart';
 
 class BookingDataPage extends StatefulWidget {
   const BookingDataPage({super.key});

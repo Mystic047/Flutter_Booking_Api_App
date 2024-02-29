@@ -39,7 +39,7 @@ class _BookingdataPageShowState extends State<BookingdataPageShow> {
 
   Future<void> _deleteBooking(int bookingID) async {
     var url = Uri.parse(
-        'http://localhost:3000/api_delete/deletehotel?hotel_id=$bookingID');
+        'http://localhost:3000/api_delete/deleteBooking?booking_id=$bookingID');
     try {
       var response = await http.delete(url);
       if (response.statusCode == 200) {

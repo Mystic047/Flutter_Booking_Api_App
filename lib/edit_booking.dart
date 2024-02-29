@@ -69,7 +69,8 @@ class _BookingEditPageState extends State<BookingEditPage> {
     if (kDebugMode) {
       print('Updating Booking with ID: $bookingId');
     }
-    var url = Uri.parse('http://localhost:3000/api_update/updateBooking/$bookingId');
+    var url =
+        Uri.parse('http://localhost:3000/api_update/updateBooking/$bookingId');
 
     try {
       var response = await http.put(
@@ -189,16 +190,32 @@ class _BookingEditPageState extends State<BookingEditPage> {
             ElevatedButton(
               onPressed: () {
                 // Validate form first
+                // Validate form first
                 if (_formKey.currentState!.validate()) {
+                  // Parsing strings to the respective types
+                  int userId = int.tryParse(_userIdController.text) ?? 0;
+                  int roomId = int.tryParse(_roomIdController.text) ?? 0;
+                  double totalPrice =
+                      double.tryParse(_totalPriceController.text) ?? 0.0;
+
+                  // Make sure that parsing was successful by checking against default values
+                  if (userId == 0 || roomId == 0 || totalPrice == 0.0) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content: Text(
+                              'Please enter valid numbers for User ID, Room ID, and Total Price')),
+                    );
+                    return;
+                  }
                   _editBooking(
-                          widget.bookingId,
-                          _userIdController.text as int,
-                          _roomIdController.text as int,
-                          _checkInDateController.text,
-                          _checkOutDateController.text,
-                          _totalPriceController.text as double,
-                          _statusController.text)
-                      .then((_) {
+                    widget.bookingId,
+                    userId,
+                    roomId,
+                    _checkInDateController.text,
+                    _checkOutDateController.text,
+                    totalPrice,
+                    _statusController.text,
+                  ).then((_) {
                     // Handle success or error here, if necessary
                     Navigator.of(context)
                         .pop(); // Assuming you want to pop on success
