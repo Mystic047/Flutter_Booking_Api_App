@@ -158,69 +158,136 @@ class _RegisterState extends State<Register> {
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
-        body: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(20.0),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  TextFormField(
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                      labelText: 'Email',
-                      errorText: _emailError,
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/22/25/ce/ea/kingsford-hotel-manila.jpg?w=1200&h=-1&s=1'),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Center(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(20.0),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'Register',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24, // ขนาดตัวหนาของคำว่า Register
+                        fontWeight: FontWeight.bold, // ตัวหนา
+                         shadows: [
+                          Shadow(
+                            color: Colors.black,
+                            blurRadius: 2, // ความโค้งมน
+                            offset: Offset(1, 1), // ตำแหน่งของเงา
+                          ),
+                        ],
+                      ),
                     ),
-                    onChanged: (value) => _validateEmail(value),
-                  ),
-                  const SizedBox(height: 20),
-                  TextFormField(
-                    controller: _passwordController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      errorText: _passwordError,
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: TextFormField(
+                        controller: _emailController,
+                        decoration: InputDecoration(
+                          labelText: 'Email',
+                          errorText: _emailError,
+                          labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                          border: OutlineInputBorder(),
+                        ),
+                        onChanged: (value) => _validateEmail(value),
+                      ),
                     ),
-                    onChanged: (value) => _validatePassword(value),
-                  ),
-                  TextFormField(
-                    controller: _firstNameController,
-                    decoration: InputDecoration(
-                      labelText: 'First Name',
-                      errorText: _firstnameError,
+                    SizedBox(height: 10), // เพิ่ม SizedBox เพื่อสร้างระยะห่าง
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: TextFormField(
+                        controller: _passwordController,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          labelText: 'Password',
+                          errorText: _passwordError,
+                          labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                          border: OutlineInputBorder(),
+                        ),
+                        onChanged: (value) => _validatePassword(value),
+                      ),
                     ),
-                    onChanged: (value) => _validateFirstname(value),
-                  ),
-                  TextFormField(
-                    controller: _lastNameController,
-                    decoration: InputDecoration(
-                      labelText: 'Last Name',
-                      errorText: _lastnameError,
+                    SizedBox(height: 10), // เพิ่ม SizedBox เพื่อสร้างระยะห่าง
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: TextFormField(
+                        controller: _firstNameController,
+                        decoration: InputDecoration(
+                          labelText: 'First Name',
+                          errorText: _firstnameError,
+                          labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                          border: OutlineInputBorder(),
+                        ),
+                        onChanged: (value) => _validateFirstname(value),
+                      ),
                     ),
-                    onChanged: (value) => _validateLastname(value),
-                  ),
-                  TextFormField(
-                    controller: _phoneNumberController,
-                    decoration: InputDecoration(
-                      labelText: 'Phone Number',
-                      errorText: _phoneNumberError,
+                    SizedBox(height: 10), // เพิ่ม SizedBox เพื่อสร้างระยะห่าง
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: TextFormField(
+                        controller: _lastNameController,
+                        decoration: InputDecoration(
+                          labelText: 'Last Name',
+                          errorText: _lastnameError,
+                          labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                          border: OutlineInputBorder(),
+                        ),
+                        onChanged: (value) => _validateLastname(value),
+                      ),
                     ),
-                    keyboardType: TextInputType.phone,
-                    onChanged: (value) => _validatePhoneNumber(value),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          submitUserData();
-                        }
-                      },
-                      child: const Text('Submit'),
+                    SizedBox(height: 10), // เพิ่ม SizedBox เพื่อสร้างระยะห่าง
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: TextFormField(
+                        controller: _phoneNumberController,
+                        decoration: InputDecoration(
+                          labelText: 'Phone Number',
+                          errorText: _phoneNumberError,
+                          labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                          border: OutlineInputBorder(),
+                        ),
+                        keyboardType: TextInputType.phone,
+                        onChanged: (value) => _validatePhoneNumber(value),
+                      ),
                     ),
-                  ),
-                ],
+                    SizedBox(height: 10), // เพิ่ม SizedBox เพื่อสร้างระยะห่าง
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            submitUserData();
+                          }
+                        },
+                        child: const Text('Submit'),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -228,4 +295,5 @@ class _RegisterState extends State<Register> {
       ),
     );
   }
+
 }
