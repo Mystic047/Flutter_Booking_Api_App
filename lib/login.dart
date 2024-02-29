@@ -85,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
         title: const Text('Login'),
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: NetworkImage(
                 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/22/25/ce/ea/kingsford-hotel-manila.jpg?w=1200&h=-1&s=1'),
@@ -105,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                     height: 100,
                     width: 100,
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   TextFormField(
                     controller: _emailController,
                     decoration: const InputDecoration(
@@ -121,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                       return null;
                     },
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   TextFormField(
                     controller: _passwordController,
                     decoration: const InputDecoration(
