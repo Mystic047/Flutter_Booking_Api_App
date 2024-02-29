@@ -147,7 +147,7 @@ class _LoginPageState extends State<LoginPage> {
                           auth();
                         }
                       },
-                      child: const Text('Logins'),
+                      child: const Text('Login'),
                     ),
                   ),
                 ],
