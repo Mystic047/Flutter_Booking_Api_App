@@ -61,58 +61,71 @@ class _HoteldataPageState extends State<HoteldataPage> {
       appBar: AppBar(
         title: const Text('All Hotels Data'),
       ),
-      body: ListView.builder(
-        itemCount: _hotels.length,
-        itemBuilder: (context, index) {
-          var hotel = _hotels[index];
-          return ListTile(
-            title: Text(
-                '${hotel['hotel_id']} - ${hotel['name']} - ${hotel['city']}'),
-            subtitle: Text('${hotel['description']}'),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                IconButton(
-                  icon: const Icon(Icons.edit, color: Colors.orange),
-                  onPressed: () async {
-                    double getRating(dynamic rating) {
-                      if (rating is int) {
-                        return rating.toDouble();
-                      } else if (rating is double) {
-                        return rating;
-                      } else {
-                        // Handle the case where rating is not a number.
-                        // You may want to throw an error or return a default value.
-                        return 0.0;
-                      }
-                    }
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage('https://www.infoquest.co.th/wp-content/uploads/2022/11/20221109_canva_%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B9%81%E0%B8%A3%E0%B8%A1-%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%9E%E0%B8%B1%E0%B8%81-Hotel-1.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: ListView.builder(
+          itemCount: _hotels.length,
+          itemBuilder: (context, index) {
+            var hotel = _hotels[index];
+            return Card(
+              color: Colors.white,
+              elevation: 3,
+              margin: EdgeInsets.all(8),
+              child: ListTile(
+                title: Text(
+                    '${hotel['hotel_id']} - ${hotel['name']} - ${hotel['city']}'),
+                subtitle: Text('${hotel['description']}'),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    IconButton(
+                      icon: const Icon(Icons.edit, color: Colors.orange),
+                      onPressed: () async {
+                        double getRating(dynamic rating) {
+                          if (rating is int) {
+                            return rating.toDouble();
+                          } else if (rating is double) {
+                            return rating;
+                          } else {
+                            // Handle the case where rating is not a number.
+                            // You may want to throw an error or return a default value.
+                            return 0.0;
+                          }
+                        }
 
-                    await Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => HotelEditPage(
-                          hotelId: hotel['hotel_id'],
-                          name: hotel['name'],
-                          description: hotel['description'],
-                          address: hotel['address'],
-                          city: hotel['city'],
-                          state: hotel['state'],
-                          country: hotel['country'],
-                          zipCode: hotel['zip_code'],
-                          rating: getRating(hotel['rating']),
-                        ),
-                      ),
-                    );
-                    _fetchHotelData(); // Refresh the entire list
-                  },
+                        await Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => HotelEditPage(
+                              hotelId: hotel['hotel_id'],
+                              name: hotel['name'],
+                              description: hotel['description'],
+                              address: hotel['address'],
+                              city: hotel['city'],
+                              state: hotel['state'],
+                              country: hotel['country'],
+                              zipCode: hotel['zip_code'],
+                              rating: getRating(hotel['rating']),
+                            ),
+                          ),
+                        );
+                        _fetchHotelData(); // Refresh the entire list
+                      },
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.delete, color: Colors.red),
+                      onPressed: () => _deleteHotel(hotel['hotel_id']),
+                    ),
+                  ],
                 ),
-                IconButton(
-                  icon: const Icon(Icons.delete, color: Colors.red),
-                  onPressed: () => _deleteHotel(hotel['hotel_id']),
-                ),
-              ],
-            ),
-          );
-        },
+              ),
+            );
+          },
+        ),
       ),
     );
   }
