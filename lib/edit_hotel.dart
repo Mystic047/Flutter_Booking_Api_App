@@ -101,129 +101,177 @@ class _HotelEditPageState extends State<HotelEditPage> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
+    @override
+    Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit User'),
+        title: const Text('Edit Hotel'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
         ),
+
       ),
-      body: Form(
-        key: _formKey,
-        child: ListView(
-          padding: const EdgeInsets.all(16),
-          children: [
-            TextFormField(
-              controller: _nameController,
-              decoration: const InputDecoration(labelText: 'Name'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter an Name';
-                }
-                return null;
-              },
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage('https://www.infoquest.co.th/wp-content/uploads/2022/11/20221109_canva_%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B9%81%E0%B8%A3%E0%B8%A1-%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%9E%E0%B8%B1%E0%B8%81-Hotel-1.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.8), // Set white color with opacity
+              borderRadius: BorderRadius.circular(16.0), // Add border radius
             ),
-            TextFormField(
-              controller: _descriptionController,
-              decoration: const InputDecoration(labelText: 'Description'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a Description';
-                }
-                return null;
-              },
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Form(
+                key: _formKey,
+                child: ListView(
+                  children: [
+                    TextFormField(
+                      controller: _nameController,
+                      decoration: const InputDecoration(
+                        labelText: 'Name',
+                        labelStyle: TextStyle(fontWeight: FontWeight.bold), // Make label text bold
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a Name';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16), // Add space between fields
+                    TextFormField(
+                      controller: _descriptionController,
+                      decoration: const InputDecoration(
+                        labelText: 'Description',
+                        labelStyle: TextStyle(fontWeight: FontWeight.bold), // Make label text bold
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a Description';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16), // Add space between fields
+                    TextFormField(
+                      controller: _addressController,
+                      decoration: const InputDecoration(
+                        labelText: 'Address',
+                        labelStyle: TextStyle(fontWeight: FontWeight.bold), // Make label text bold
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter an Address';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16), // Add space between fields
+                    TextFormField(
+                      controller: _cityController,
+                      decoration: const InputDecoration(
+                        labelText: 'City',
+                        labelStyle: TextStyle(fontWeight: FontWeight.bold), // Make label text bold
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a City';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16), // Add space between fields
+                    TextFormField(
+                      controller: _stateController,
+                      decoration: const InputDecoration(
+                        labelText: 'State',
+                        labelStyle: TextStyle(fontWeight: FontWeight.bold), // Make label text bold
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a State';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16), // Add space between fields
+                    TextFormField(
+                      controller: _countryController,
+                      decoration: const InputDecoration(
+                        labelText: 'Country',
+                        labelStyle: TextStyle(fontWeight: FontWeight.bold), // Make label text bold
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a Country';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16), // Add space between fields
+                    TextFormField(
+                      controller: _zipCodeController,
+                      decoration: const InputDecoration(
+                        labelText: 'Zip Code',
+                        labelStyle: TextStyle(fontWeight: FontWeight.bold), // Make label text bold
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a Zip Code';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16), // Add space between fields
+                    TextFormField(
+                      controller: _ratingController,
+                      decoration: const InputDecoration(
+                        labelText: 'Rating',
+                        labelStyle: TextStyle(fontWeight: FontWeight.bold), // Make label text bold
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a Rating';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 24), // Add more space before button
+                    ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          _editUser(
+                            widget.hotelId,
+                            _nameController.text,
+                            _descriptionController.text,
+                            _addressController.text,
+                            _cityController.text,
+                            _stateController.text,
+                            _countryController.text,
+                            _zipCodeController.text,
+                          ).then((_) {
+                            Navigator.of(context).pop();
+                          }).catchError((error) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Error updating: $error')),
+                            );
+                          });
+                        }
+                      },
+                      child: const Text('Save'),
+                    ),
+                  ],
+                ),
+              ),
             ),
-            TextFormField(
-              controller: _addressController,
-              decoration: const InputDecoration(labelText: 'Adress'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a Adress';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: _cityController,
-              decoration: const InputDecoration(labelText: 'City'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a City';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: _stateController,
-              decoration: const InputDecoration(labelText: 'state'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a state';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: _countryController,
-              decoration: const InputDecoration(labelText: 'country'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a country';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: _zipCodeController,
-              decoration: const InputDecoration(labelText: 'zipCode'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a zipCode';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: _ratingController,
-              decoration: const InputDecoration(labelText: 'rating'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a rating';
-                }
-                return null;
-              },
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // Validate form first
-                if (_formKey.currentState!.validate()) {
-                  _editUser(
-                          widget.hotelId,
-                          _nameController.text,
-                          _descriptionController.text,
-                          _addressController.text,
-                          _cityController.text,
-                          _stateController.text,
-                          _countryController.text,
-                          _zipCodeController.text)
-                      .then((_) {
-                    // Handle success or error here, if necessary
-                    Navigator.of(context)
-                        .pop(); // Assuming you want to pop on success
-                  }).catchError((error) {
-                    // Handle error
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Error updating user: $error')),
-                    );
-                  });
-                }
-              },
-              child: const Text('Save'),
-            ),
-          ],
+          ),
         ),
       ),
     );

@@ -72,53 +72,69 @@ class _UserdataPageState extends State<UserdataPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(Session.firstName),
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: Text(Session.firstName),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
+    ),
+    body: Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: NetworkImage('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/22/25/ce/ea/kingsford-hotel-manila.jpg?w=1200&h=-1&s=1'),
+          fit: BoxFit.cover,
+
         ),
       ),
-      body: ListView.builder(
+      child: ListView.builder(
         itemCount: _users.length,
         itemBuilder: (context, index) {
           var user = _users[index];
-          return ListTile(
-            title: Text('${user['first_name']} ${user['last_name']}'),
-            subtitle: Text(user['email']),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                // When opening UserEditPage from UserdataPage or wherever you have the list
-                IconButton(
-                  icon: const Icon(Icons.edit, color: Colors.orange),
-                  onPressed: () async {
-                    await Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => UserEditPage(
-                          userId: user['user_id'],
-                          email: user['email'],
-                          firstName: user['first_name'],
-                          lastName: user['last_name'],
-                          phoneNumber: user['phone_number'],
+          return Card(
+            margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+            elevation: 4.0,
+            child: ListTile(
+              title: Text(
+                '${user['first_name']} ${user['last_name']}',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              subtitle: Text(user['email']),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  // When opening UserEditPage from UserdataPage or wherever you have the list
+                  IconButton(
+                    icon: const Icon(Icons.edit, color: Colors.orange),
+                    onPressed: () async {
+                      await Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => UserEditPage(
+                            userId: user['user_id'],
+                            email: user['email'],
+                            firstName: user['first_name'],
+                            lastName: user['last_name'],
+                            phoneNumber: user['phone_number'],
+                          ),
                         ),
-                      ),
-                    );
-                    _fetchUserData(); // Refresh the entire list
-                  },
-                ),
-
-                IconButton(
-                  icon: const Icon(Icons.delete, color: Colors.red),
-                  onPressed: () => _deleteUser(user['user_id']),
-                ),
-              ],
+                      );
+                      _fetchUserData(); // Refresh the entire list
+                    },
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.delete, color: Colors.red),
+                    onPressed: () => _deleteUser(user['user_id']),
+                  ),
+                ],
+              ),
             ),
           );
         },
       ),
-    );
-  }
+    ),
+  );
+}
+
+
 }
