@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_booking/ForUser/user_review_page.dart';
+import 'package:flutter_app_booking/login.dart';
 import 'package:flutter_app_booking/session.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -8,6 +10,17 @@ import 'package:flutter_app_booking/session.dart';
 
 class UserBookingDataPage extends StatefulWidget {
   const UserBookingDataPage({super.key});
+
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false, // Set this property to false
+      title: 'Login Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const UserBookingDataPage(),
+    );
+  }
 
   @override
   // ignore: library_private_types_in_public_api
@@ -118,6 +131,19 @@ class _UserBookingDataPageState extends State<UserBookingDataPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Booking Hotel App'),
+        actions: <Widget>[
+          PopupMenuButton<String>(
+            onSelected: handleMenuClick,
+            itemBuilder: (BuildContext context) {
+              return {'Review', 'Logout'}.map((String choice) {
+                return PopupMenuItem<String>(
+                  value: choice,
+                  child: Text(choice),
+                );
+              }).toList();
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -229,5 +255,30 @@ class _UserBookingDataPageState extends State<UserBookingDataPage> {
         ),
       ),
     );
+  }
+
+  void handleMenuClick(String value) {
+    switch (value) {
+      case 'Review':
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const UserHoteldataPage(),
+          ),
+        );
+        break;
+      case 'Logout':
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  const Login()), // Assuming your login page is called "Login"
+          (Route<dynamic> route) =>
+              false, // Conditions that returns false, so it removes all routes
+        );
+        break;
+      default:
+        break;
+    }
   }
 }

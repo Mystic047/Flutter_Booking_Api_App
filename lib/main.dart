@@ -4,5 +4,11 @@ import 'register.dart';
 import 'login.dart';
 
 void main() {
-  runApp(const MaterialApp(home: Login()));
+  runApp(
+    const MaterialApp(
+      home: Login(),
+      debugShowCheckedModeBanner:
+          false, // Add this line to hide the debug banner
+    ),
+  );
 }

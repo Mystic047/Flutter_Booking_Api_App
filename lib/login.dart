@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_booking/ForUser/user_booking_page.dart';
+
 // ignore: unused_import
-import 'package:flutter_app_booking/ForUser/user_first_page.dart';
+
 import 'package:flutter_app_booking/admin_dashboard.dart';
 import 'package:flutter_app_booking/session.dart';
 import 'package:logger/logger.dart';
@@ -22,6 +23,7 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false, // Set this property to false
       title: 'Login Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,

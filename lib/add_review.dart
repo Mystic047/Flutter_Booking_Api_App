@@ -94,7 +94,7 @@ class _ReviewFormState extends State<ReviewForm> {
                   return null;
                 },
               ),
-               TextFormField(
+              TextFormField(
                 controller: _hotelIdController,
                 decoration: const InputDecoration(labelText: 'HotelID'),
                 keyboardType: TextInputType.number,
@@ -105,13 +105,35 @@ class _ReviewFormState extends State<ReviewForm> {
                   return null;
                 },
               ),
-                  TextFormField(
+              TextFormField(
                 controller: _userIdController,
                 decoration: const InputDecoration(labelText: 'UserID'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter User ID';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                controller: _ratingController,
+                decoration: const InputDecoration(labelText: 'Rating'),
+                keyboardType: TextInputType.number,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter Rating';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                controller: _commentController,
+                decoration: const InputDecoration(labelText: 'Comment'),
+                keyboardType: TextInputType.text,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter Comment ';
                   }
                   return null;
                 },
