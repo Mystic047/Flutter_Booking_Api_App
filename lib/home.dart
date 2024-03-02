@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
         final List<dynamic> userData = json.decode(response.body);
         if (userData.isNotEmpty) {
           setState(() {
-            Session.userID = userData[0]['user_id'].toString();
+            Session.userID = userData[0]['user_id'];
             Session.firstName = userData[0]['first_name'];
             Session.lastName = userData[0]['last_name'];
 

@@ -1,10 +1,18 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_booking/Report/report_booking.dart';
+import 'package:flutter_app_booking/Report/report_hotel.dart';
+import 'package:flutter_app_booking/Report/report_review.dart';
+import 'package:flutter_app_booking/Report/report_room.dart';
+import 'package:flutter_app_booking/Report/report_user.dart';
 import 'package:flutter_app_booking/add_booking.dart';
 import 'package:flutter_app_booking/add_hotel.dart';
 import 'package:flutter_app_booking/add_review.dart';
 import 'package:flutter_app_booking/add_room.dart';
+import 'package:flutter_app_booking/edit_user.dart';
 import 'package:flutter_app_booking/login.dart';
 import 'package:flutter_app_booking/register.dart';
+import 'package:flutter_app_booking/session.dart';
 import 'package:flutter_app_booking/show_all_booking_data.dart';
 import 'package:flutter_app_booking/show_all_reviews.data.dart';
 import 'package:flutter_app_booking/show_all_room_data.dart';
@@ -66,7 +74,7 @@ class AdminDashboardPage extends StatelessWidget {
           PopupMenuButton<String>(
             onSelected: (value) => handleMenuClick(context, value),
             itemBuilder: (BuildContext context) {
-              return {'Logout'}.map((String choice) {
+              return {'Profile', 'Logout'}.map((String choice) {
                 return PopupMenuItem<String>(
                   value: choice,
                   child: Text(choice),
@@ -98,7 +106,12 @@ class AdminDashboardPage extends StatelessWidget {
                     MaterialPageRoute(
                         builder: (context) => const UserdataPage()));
               },
-              onPressed3: () {},
+              onPressed3: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ReportUserdataPage()));
+              },
             ),
 
             AdminCard(
@@ -119,8 +132,14 @@ class AdminDashboardPage extends StatelessWidget {
                     MaterialPageRoute(
                         builder: (context) => const HoteldataPage()));
               },
-              onPressed3: () {},
+              onPressed3: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ReportHoteldataPage()));
+              },
             ),
+
             AdminCard(
               title: 'Rooms Management',
               icon1: Icons.meeting_room,
@@ -141,6 +160,10 @@ class AdminDashboardPage extends StatelessWidget {
               },
               onPressed3: () {
                 // Navigate to Booking Report Page
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ReportRoomdataPage()));
               },
             ),
 
@@ -166,6 +189,10 @@ class AdminDashboardPage extends StatelessWidget {
               },
               onPressed3: () {
                 // Navigate to Review Report Page
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ReportReviewdataPage()));
               },
             ),
 
@@ -191,6 +218,10 @@ class AdminDashboardPage extends StatelessWidget {
               },
               onPressed3: () {
                 // Navigate to About Page
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ReportBookingDataPage()));
               },
             ),
             // ... Add more AdminCard widgets for each category
@@ -201,7 +232,29 @@ class AdminDashboardPage extends StatelessWidget {
   }
 
   void handleMenuClick(BuildContext context, String value) {
+    // ignore: non_constant_identifier_names
     switch (value) {
+      case 'Profile':
+        if (kDebugMode) {
+          print('Test User ID form Admin');
+          print(Session.userID);
+        }
+        if (Session.userID != null) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => UserEditPage(
+                userId: Session.userID ??
+                    -1, // Use -1 or another value as the default,
+                email: Session.email,
+                firstName: Session.firstName,
+                lastName: Session.lastName,
+                phoneNumber: Session.phonenumber,
+              ),
+            ),
+          );
+        } else {}
+
+        break;
       case 'Logout':
         Navigator.pushAndRemoveUntil(
           context,

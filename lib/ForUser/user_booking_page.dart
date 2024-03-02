@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_booking/ForUser/user_review_page.dart';
+import 'package:flutter_app_booking/edit_user.dart';
 import 'package:flutter_app_booking/login.dart';
 import 'package:flutter_app_booking/session.dart';
 import 'package:http/http.dart' as http;
@@ -135,7 +136,7 @@ class _UserBookingDataPageState extends State<UserBookingDataPage> {
           PopupMenuButton<String>(
             onSelected: handleMenuClick,
             itemBuilder: (BuildContext context) {
-              return {'Review', 'Logout'}.map((String choice) {
+              return {'Profile', 'Review', 'Logout'}.map((String choice) {
                 return PopupMenuItem<String>(
                   value: choice,
                   child: Text(choice),
@@ -276,6 +277,26 @@ class _UserBookingDataPageState extends State<UserBookingDataPage> {
           (Route<dynamic> route) =>
               false, // Conditions that returns false, so it removes all routes
         );
+        break;
+      case 'Profile':
+        if (kDebugMode) {
+          print('Test User ID form Admin');
+          print(Session.userID);
+        }
+        if (Session.userID != null) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => UserEditPage(
+                userId: Session.userID ??
+                    -1, // Use -1 or another value as the default,
+                email: Session.email,
+                firstName: Session.firstName,
+                lastName: Session.lastName,
+                phoneNumber: Session.phonenumber,
+              ),
+            ),
+          );
+        } else {}
         break;
       default:
         break;
