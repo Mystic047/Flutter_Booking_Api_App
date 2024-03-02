@@ -1,5 +1,7 @@
 class Session {
-  static String userID = '';
+  static int? userID;
+  static String email = '';
   static String firstName = '';
   static String lastName = '';
+  static String phonenumber = '';
 }

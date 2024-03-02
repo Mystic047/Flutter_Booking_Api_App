@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert'; // For using json.encode
 
 class UserEditPage extends StatefulWidget {
-  final int userId;
+  final int? userId;
   final String email, firstName, lastName, phoneNumber;
 
   const UserEditPage({
@@ -87,7 +87,8 @@ class _UserEditPageState extends State<UserEditPage> {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: NetworkImage('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/22/25/ce/ea/kingsford-hotel-manila.jpg?w=1200&h=-1&s=1'),
+            image: NetworkImage(
+                'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/22/25/ce/ea/kingsford-hotel-manila.jpg?w=1200&h=-1&s=1'),
             fit: BoxFit.cover,
           ),
         ),
@@ -95,7 +96,8 @@ class _UserEditPageState extends State<UserEditPage> {
           padding: const EdgeInsets.all(16.0),
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.8), // Set white color with opacity
+              color:
+                  Colors.white.withOpacity(0.8), // Set white color with opacity
               borderRadius: BorderRadius.circular(16.0), // Add border radius
             ),
             child: Padding(
@@ -108,7 +110,9 @@ class _UserEditPageState extends State<UserEditPage> {
                       controller: _emailController,
                       decoration: const InputDecoration(
                         labelText: 'Email',
-                        labelStyle: TextStyle(fontWeight: FontWeight.bold), // Make label text bold
+                        labelStyle: TextStyle(
+                            fontWeight:
+                                FontWeight.bold), // Make label text bold
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -122,7 +126,9 @@ class _UserEditPageState extends State<UserEditPage> {
                       controller: _firstNameController,
                       decoration: const InputDecoration(
                         labelText: 'First Name',
-                        labelStyle: TextStyle(fontWeight: FontWeight.bold), // Make label text bold
+                        labelStyle: TextStyle(
+                            fontWeight:
+                                FontWeight.bold), // Make label text bold
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -136,7 +142,9 @@ class _UserEditPageState extends State<UserEditPage> {
                       controller: _lastNameController,
                       decoration: const InputDecoration(
                         labelText: 'Last Name',
-                        labelStyle: TextStyle(fontWeight: FontWeight.bold), // Make label text bold
+                        labelStyle: TextStyle(
+                            fontWeight:
+                                FontWeight.bold), // Make label text bold
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -150,7 +158,9 @@ class _UserEditPageState extends State<UserEditPage> {
                       controller: _phoneNumberController,
                       decoration: const InputDecoration(
                         labelText: 'Phone Number',
-                        labelStyle: TextStyle(fontWeight: FontWeight.bold), // Make label text bold
+                        labelStyle: TextStyle(
+                            fontWeight:
+                                FontWeight.bold), // Make label text bold
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -164,7 +174,7 @@ class _UserEditPageState extends State<UserEditPage> {
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           _editUser(
-                            widget.userId,
+                            widget.userId!,
                             _emailController.text,
                             _firstNameController.text,
                             _lastNameController.text,
@@ -173,7 +183,8 @@ class _UserEditPageState extends State<UserEditPage> {
                             Navigator.of(context).pop();
                           }).catchError((error) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('Error updating user: $error')),
+                              SnackBar(
+                                  content: Text('Error updating user: $error')),
                             );
                           });
                         }
@@ -189,5 +200,4 @@ class _UserEditPageState extends State<UserEditPage> {
       ),
     );
   }
-
 }

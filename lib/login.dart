@@ -110,17 +110,28 @@ class _LoginPageState extends State<LoginPage> {
         final List<dynamic> userData = json.decode(response.body);
         if (userData.isNotEmpty) {
           setState(() {
-            Session.userID = userData[0]['user_id'].toString();
-            Session.firstName = userData[0]['first_name'];
-            Session.lastName = userData[0]['last_name'];
+            Session.userID = userData[0]['user_id'];
+            Session.email = userData[0]['email'] ?? '';
+            Session.firstName = userData[0]['first_name'] ?? '';
+            Session.lastName = userData[0]['last_name'] ?? '';
+            Session.phonenumber = userData[0]['phone_number'] ??
+                ''; // Ensure the key matches what's returned from the API
 
             if (kDebugMode) {
-              print(Session.userID);
+              print('User ID: ${Session.userID}');
             }
           });
+        } else {
+          if (kDebugMode) {
+            print('No user found with that email.');
+          }
+        }
+      } else {
+        if (kDebugMode) {
+          print(
+              'Failed to fetch user data with status code: ${response.statusCode}');
         }
       }
-      // ignore: empty_catches
     } catch (e) {
       if (kDebugMode) {
         print('Error fetching user data: $e');
