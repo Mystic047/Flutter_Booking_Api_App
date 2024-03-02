@@ -159,7 +159,7 @@ class _RegisterState extends State<Register> {
           ),
         ),
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: NetworkImage('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/22/25/ce/ea/kingsford-hotel-manila.jpg?w=1200&h=-1&s=1'),
               fit: BoxFit.cover,
@@ -173,7 +173,7 @@ class _RegisterState extends State<Register> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text(
+                    const Text(
                       'Register',
                       style: TextStyle(
                         color: Colors.white,
@@ -198,13 +198,13 @@ class _RegisterState extends State<Register> {
                         decoration: InputDecoration(
                           labelText: 'Email',
                           errorText: _emailError,
-                          labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                          border: OutlineInputBorder(),
+                          labelStyle: const TextStyle(fontWeight: FontWeight.bold),
+                          border: const OutlineInputBorder(),
                         ),
                         onChanged: (value) => _validateEmail(value),
                       ),
                     ),
-                    SizedBox(height: 10), // เพิ่ม SizedBox เพื่อสร้างระยะห่าง
+                    const SizedBox(height: 10), // เพิ่ม SizedBox เพื่อสร้างระยะห่าง
                     Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -216,13 +216,13 @@ class _RegisterState extends State<Register> {
                         decoration: InputDecoration(
                           labelText: 'Password',
                           errorText: _passwordError,
-                          labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                          border: OutlineInputBorder(),
+                          labelStyle: const TextStyle(fontWeight: FontWeight.bold),
+                          border: const OutlineInputBorder(),
                         ),
                         onChanged: (value) => _validatePassword(value),
                       ),
                     ),
-                    SizedBox(height: 10), // เพิ่ม SizedBox เพื่อสร้างระยะห่าง
+                    const SizedBox(height: 10), // เพิ่ม SizedBox เพื่อสร้างระยะห่าง
                     Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -233,13 +233,13 @@ class _RegisterState extends State<Register> {
                         decoration: InputDecoration(
                           labelText: 'First Name',
                           errorText: _firstnameError,
-                          labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                          border: OutlineInputBorder(),
+                          labelStyle: const TextStyle(fontWeight: FontWeight.bold),
+                          border: const OutlineInputBorder(),
                         ),
                         onChanged: (value) => _validateFirstname(value),
                       ),
                     ),
-                    SizedBox(height: 10), // เพิ่ม SizedBox เพื่อสร้างระยะห่าง
+                    const SizedBox(height: 10), // เพิ่ม SizedBox เพื่อสร้างระยะห่าง
                     Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -250,13 +250,13 @@ class _RegisterState extends State<Register> {
                         decoration: InputDecoration(
                           labelText: 'Last Name',
                           errorText: _lastnameError,
-                          labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                          border: OutlineInputBorder(),
+                          labelStyle: const TextStyle(fontWeight: FontWeight.bold),
+                          border: const OutlineInputBorder(),
                         ),
                         onChanged: (value) => _validateLastname(value),
                       ),
                     ),
-                    SizedBox(height: 10), // เพิ่ม SizedBox เพื่อสร้างระยะห่าง
+                    const SizedBox(height: 10), // เพิ่ม SizedBox เพื่อสร้างระยะห่าง
                     Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -267,14 +267,14 @@ class _RegisterState extends State<Register> {
                         decoration: InputDecoration(
                           labelText: 'Phone Number',
                           errorText: _phoneNumberError,
-                          labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                          border: OutlineInputBorder(),
+                          labelStyle: const TextStyle(fontWeight: FontWeight.bold),
+                          border: const OutlineInputBorder(),
                         ),
                         keyboardType: TextInputType.phone,
                         onChanged: (value) => _validatePhoneNumber(value),
                       ),
                     ),
-                    SizedBox(height: 10), // เพิ่ม SizedBox เพื่อสร้างระยะห่าง
+                    const SizedBox(height: 10), // เพิ่ม SizedBox เพื่อสร้างระยะห่าง
                     Padding(
                       padding: const EdgeInsets.only(top: 20.0),
                       child: ElevatedButton(
