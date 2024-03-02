@@ -260,10 +260,10 @@ class _UserBookingDataPageState extends State<UserBookingDataPage> {
   void handleMenuClick(String value) {
     switch (value) {
       case 'Review':
-        Navigator.pushReplacement(
+        Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const UserHoteldataPage(),
+            builder: (context) => const UserReviewHoteldataPage(),
           ),
         );
         break;
