@@ -62,6 +62,10 @@ class _RoomdataPageState extends State<RoomdataPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('All Rooms Data'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       body: ListView.builder(
         itemCount: _rooms.length,

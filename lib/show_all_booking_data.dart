@@ -68,6 +68,10 @@ class _BookingdataPageShowState extends State<BookingdataPageShow> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('All Booking Data'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       body: ListView.builder(
         itemCount: _booking.length,

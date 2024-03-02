@@ -118,6 +118,10 @@ class _BookingDataPageState extends State<BookingDataPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Book a Room'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(

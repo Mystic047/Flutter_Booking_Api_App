@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_booking/session.dart';
 import 'package:http/http.dart' as http;
@@ -10,6 +9,7 @@ class ReviewSubmissionPage extends StatefulWidget {
       : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _ReviewSubmissionPageState createState() => _ReviewSubmissionPageState();
 }
 
@@ -75,6 +75,7 @@ class _ReviewSubmissionPageState extends State<ReviewSubmissionPage> {
 
         if (response.statusCode == 200) {
           debugPrint('Review added successfully');
+          // ignore: use_build_context_synchronously
           Navigator.pop(context);
         } else {
           debugPrint('Failed to add review');
@@ -90,6 +91,10 @@ class _ReviewSubmissionPageState extends State<ReviewSubmissionPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Submit Review'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(12.0),

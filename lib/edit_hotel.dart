@@ -106,6 +106,10 @@ class _HotelEditPageState extends State<HotelEditPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Edit User'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       body: Form(
         key: _formKey,

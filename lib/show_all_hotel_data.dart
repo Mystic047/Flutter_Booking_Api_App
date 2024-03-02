@@ -60,6 +60,10 @@ class _HoteldataPageState extends State<HoteldataPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('All Hotels Data'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       body: ListView.builder(
         itemCount: _hotels.length,
