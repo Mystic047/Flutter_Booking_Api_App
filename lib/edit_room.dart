@@ -94,6 +94,10 @@ class _RoomEditPageState extends State<RoomEditPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Edit Room'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       body: Form(
         key: _formKey,
@@ -166,8 +170,7 @@ class _RoomEditPageState extends State<RoomEditPage> {
                 if (_formKey.currentState!.validate()) {
                   try {
                     int hotelId = int.parse(_hotelIdController.text);
-                    int roomId = int.parse(_roomIdController
-                        .text); 
+                    int roomId = int.parse(_roomIdController.text);
                     int numberOfRooms =
                         int.parse(_number_of_roomsController.text);
                     double price = double.parse(_priceController.text);

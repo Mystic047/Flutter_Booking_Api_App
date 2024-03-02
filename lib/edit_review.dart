@@ -85,6 +85,10 @@ class _ReviewEditPageState extends State<ReviewEditPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Edit Review'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       body: Form(
         key: _formKey,
@@ -148,7 +152,8 @@ class _ReviewEditPageState extends State<ReviewEditPage> {
                 if (rating == null) {
                   // Handle the case where the string did not contain a valid double
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Please enter a valid rating.')),
+                    const SnackBar(
+                        content: Text('Please enter a valid rating.')),
                   );
                   return; // Exit the function if parsing failed
                 }

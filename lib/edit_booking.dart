@@ -111,6 +111,10 @@ class _BookingEditPageState extends State<BookingEditPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Edit Booking'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       body: Form(
         key: _formKey,

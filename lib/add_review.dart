@@ -76,6 +76,10 @@ class _ReviewFormState extends State<ReviewForm> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Review'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       body: Form(
         key: _formKey,

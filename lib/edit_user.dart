@@ -79,6 +79,10 @@ class _UserEditPageState extends State<UserEditPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Edit User'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       body: Container(
         decoration: BoxDecoration(

@@ -3,6 +3,7 @@ import 'package:flutter_app_booking/ForUser/review_submit_page.dart';
 import 'package:flutter_app_booking/session.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:intl/intl.dart';
 
 class UserHoteldataPage extends StatefulWidget {
   const UserHoteldataPage({Key? key}) : super(key: key);
@@ -39,32 +40,52 @@ class _UserHoteldataPageState extends State<UserHoteldataPage> {
     }
   }
 
+  String formatDateString(String dateString) {
+    var parsedDate = DateTime.parse(dateString);
+    var formatter =
+        DateFormat('yyyy-MM-dd'); // Use any format that suits your need
+    return formatter.format(parsedDate);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Your Bookings'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       body: ListView.builder(
         itemCount: _bookings.length,
         itemBuilder: (context, index) {
           var booking = _bookings[index];
+          bool isReviewed = booking['reviewed'] == 1;
+
           return Card(
             child: ListTile(
               title: Text(
                   'Booking ID: ${booking['booking_id']} - Room ID: ${booking['room_id']}'),
               subtitle: Text(
-                  'Check-in: ${booking['check_in_date']} - Check-out: ${booking['check_out_date']}'),
+                  'Check-in: ${formatDateString(booking['check_in_date'])} - Check-out: ${formatDateString(booking['check_out_date'])}'),
               trailing: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            ReviewSubmissionPage(roomId: booking['room_id'])),
-                  );
-                },
-                child: const Text('Review'),
+                onPressed: isReviewed
+                    ? null
+                    : () {
+                        // Navigate to review submission page if not reviewed
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ReviewSubmissionPage(
+                                    roomId: booking['room_id'])));
+                      },
+                style: ElevatedButton.styleFrom(
+                  disabledForegroundColor: Colors.grey.withOpacity(0.38),
+                  disabledBackgroundColor: Colors.grey
+                      .withOpacity(0.12), // Button color when disabled
+                ),
+                child: Text(isReviewed ? 'Reviewed' : 'Review'),
               ),
             ),
           );

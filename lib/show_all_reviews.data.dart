@@ -76,6 +76,10 @@ class _ReviewdataPageState extends State<ReviewdataPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(Session.firstName),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       body: ListView.builder(
         itemCount: _reviews.length,

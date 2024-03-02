@@ -76,12 +76,16 @@ Widget build(BuildContext context) {
   return Scaffold(
     appBar: AppBar(
       title: Text(Session.firstName),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
     ),
     body: Container(
       decoration: BoxDecoration(
         image: DecorationImage(
           image: NetworkImage('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/22/25/ce/ea/kingsford-hotel-manila.jpg?w=1200&h=-1&s=1'),
           fit: BoxFit.cover,
+
         ),
       ),
       child: ListView.builder(
