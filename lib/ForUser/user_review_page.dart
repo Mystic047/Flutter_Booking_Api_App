@@ -5,14 +5,14 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:intl/intl.dart';
 
-class UserHoteldataPage extends StatefulWidget {
-  const UserHoteldataPage({Key? key}) : super(key: key);
+class UserReviewHoteldataPage extends StatefulWidget {
+  const UserReviewHoteldataPage({Key? key}) : super(key: key);
 
   @override
-  State<UserHoteldataPage> createState() => _UserHoteldataPageState();
+  State<UserReviewHoteldataPage> createState() => _UserReviewHoteldataPageState();
 }
 
-class _UserHoteldataPageState extends State<UserHoteldataPage> {
+class _UserReviewHoteldataPageState extends State<UserReviewHoteldataPage> {
   List<dynamic> _bookings = []; // Changed to bookings
 
   @override

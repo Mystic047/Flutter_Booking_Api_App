@@ -90,6 +90,7 @@ class _AddhotelState extends State<Addhotel> {
     const String appTitle = 'Add Hotel';
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           title: const Text(appTitle),

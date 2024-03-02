@@ -3,7 +3,11 @@ import 'package:flutter_app_booking/add_booking.dart';
 import 'package:flutter_app_booking/add_hotel.dart';
 import 'package:flutter_app_booking/add_review.dart';
 import 'package:flutter_app_booking/add_room.dart';
+import 'package:flutter_app_booking/login.dart';
 import 'package:flutter_app_booking/register.dart';
+import 'package:flutter_app_booking/show_all_booking_data.dart';
+import 'package:flutter_app_booking/show_all_reviews.data.dart';
+import 'package:flutter_app_booking/show_all_room_data.dart';
 
 import 'package:flutter_app_booking/show_all_user_data.dart';
 
@@ -38,6 +42,7 @@ class AdminApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Admin Dashboard',
       theme: ThemeData(
         primarySwatch:
@@ -57,6 +62,19 @@ class AdminDashboardPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Admin Dashboard'),
+        actions: <Widget>[
+          PopupMenuButton<String>(
+            onSelected: (value) => handleMenuClick(context, value),
+            itemBuilder: (BuildContext context) {
+              return {'Logout'}.map((String choice) {
+                return PopupMenuItem<String>(
+                  value: choice,
+                  child: Text(choice),
+                );
+              }).toList();
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -116,8 +134,10 @@ class AdminDashboardPage extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => const Addroom()));
               },
               onPressed2: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Addhotel()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const RoomdataPage()));
               },
               onPressed3: () {
                 // Navigate to Booking Report Page
@@ -139,8 +159,10 @@ class AdminDashboardPage extends StatelessWidget {
                         builder: (context) => const ReviewForm()));
               },
               onPressed2: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Addroom()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ReviewdataPage()));
               },
               onPressed3: () {
                 // Navigate to Review Report Page
@@ -162,8 +184,10 @@ class AdminDashboardPage extends StatelessWidget {
                         builder: (context) => const BookingDataPage()));
               },
               onPressed2: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Addroom()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const BookingdataPageShow()));
               },
               onPressed3: () {
                 // Navigate to About Page
@@ -174,6 +198,23 @@ class AdminDashboardPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void handleMenuClick(BuildContext context, String value) {
+    switch (value) {
+      case 'Logout':
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  const Login()), // Assuming your login page is called "Login"
+          (Route<dynamic> route) =>
+              false, // Conditions that returns false, so it removes all routes
+        );
+        break;
+      default:
+        break;
+    }
   }
 }
 
