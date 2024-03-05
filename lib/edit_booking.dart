@@ -38,23 +38,18 @@ class _BookingEditPageState extends State<BookingEditPage> {
   @override
   void initState() {
     super.initState();
-    _bookingIdController =
-        TextEditingController(text: widget.bookingId.toString());
+    _bookingIdController = TextEditingController(text: widget.bookingId.toString());
     _userIdController = TextEditingController(text: widget.userId.toString());
     _roomIdController = TextEditingController(text: widget.roomId.toString());
-    _checkInDateController =
-        TextEditingController(text: formatDateString(widget.checkInDate));
-    _checkOutDateController =
-        TextEditingController(text: formatDateString(widget.checkOutDate));
-    _totalPriceController =
-        TextEditingController(text: widget.totalPrice.toString());
+    _checkInDateController = TextEditingController(text: formatDateString(widget.checkInDate));
+    _checkOutDateController = TextEditingController(text: formatDateString(widget.checkOutDate));
+    _totalPriceController = TextEditingController(text: widget.totalPrice.toString());
     _statusController = TextEditingController(text: widget.status);
   }
 
   String formatDateString(String dateString) {
     var parsedDate = DateTime.parse(dateString);
-    var formatter =
-        DateFormat('yyyy-MM-dd'); // Use any format that suits your need
+    var formatter = DateFormat('yyyy-MM-dd'); // Use any format that suits your need
     return formatter.format(parsedDate);
   }
 
@@ -69,21 +64,18 @@ class _BookingEditPageState extends State<BookingEditPage> {
     if (kDebugMode) {
       print('Updating Booking with ID: $bookingId');
     }
-    var url =
-        Uri.parse('http://localhost:3000/api_update/updateBooking/$bookingId');
+    var url = Uri.parse('http://localhost:3000/api_update/updateBooking/$bookingId');
 
     try {
       var response = await http.put(
         url,
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: {'Content-Type': 'application/json'},
         body: json.encode({
           'booking_id': bookingId,
           'user_id': userId,
           'room_id': roomId,
-          'check_in_date': formatDateString(checkInDate),
-          'check_out_date': formatDateString(checkOutDate),
+          'check_in_date': checkInDate,
+          'check_out_date': checkOutDate,
           'total_price': totalPrice,
           'status': status,
         }),
@@ -95,8 +87,7 @@ class _BookingEditPageState extends State<BookingEditPage> {
         // Optionally, refresh the UI or user list here if needed
       } else {
         if (kDebugMode) {
-          print(
-              'Failed to update Booking data with status code: ${response.statusCode}');
+          print('Failed to update Booking data with status code: ${response.statusCode}');
         }
       }
     } catch (e) {
@@ -116,124 +107,120 @@ class _BookingEditPageState extends State<BookingEditPage> {
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      body: Form(
-        key: _formKey,
-        child: ListView(
-          padding: const EdgeInsets.all(16),
-          children: [
-            TextFormField(
-              controller: _bookingIdController,
-              decoration: const InputDecoration(labelText: 'Booking Id'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter an Booking Id';
-                }
-                return null;
-              },
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage(
+                'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/22/25/ce/ea/kingsford-hotel-manila.jpg?w=1200&h=-1&s=1'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.85),
+              borderRadius: BorderRadius.circular(12),
             ),
-            TextFormField(
-              controller: _userIdController,
-              decoration: const InputDecoration(labelText: 'User Id'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a User Id';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: _roomIdController,
-              decoration: const InputDecoration(labelText: 'Room Id'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a Room Id';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: _checkInDateController,
-              decoration: const InputDecoration(labelText: 'Check in'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a Check in date';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: _checkOutDateController,
-              decoration: const InputDecoration(labelText: 'Check out'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a Check out date';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: _totalPriceController,
-              decoration: const InputDecoration(labelText: 'Total Price'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a Total Price';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: _statusController,
-              decoration: const InputDecoration(labelText: 'Status'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a Status';
-                }
-                return null;
-              },
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // Validate form first
-                // Validate form first
-                if (_formKey.currentState!.validate()) {
-                  // Parsing strings to the respective types
-                  int userId = int.tryParse(_userIdController.text) ?? 0;
-                  int roomId = int.tryParse(_roomIdController.text) ?? 0;
-                  double totalPrice =
-                      double.tryParse(_totalPriceController.text) ?? 0.0;
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Form(
+                key: _formKey,
+                child: ListView(
+                  children: [
+                    TextFormField(
+                      controller: _bookingIdController,
+                      decoration: const InputDecoration(labelText: 'Booking ID'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter the Booking ID';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      controller: _userIdController,
+                      decoration: const InputDecoration(labelText: 'User ID'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter the User ID';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      controller: _roomIdController,
+                      decoration: const InputDecoration(labelText: 'Room ID'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter the Room ID';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      controller: _checkInDateController,
+                      decoration: const InputDecoration(labelText: 'Check-In Date'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter the Check-In Date';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      controller: _checkOutDateController,
+                      decoration: const InputDecoration(labelText: 'Check-Out Date'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter the Check-Out Date';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      controller: _totalPriceController,
+                      decoration: const InputDecoration(labelText: 'Total Price'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter the Total Price';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      controller: _statusController,
+                      decoration: const InputDecoration(labelText: 'Status'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter the status';
+                        }
+                        return null;
+                      },
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          // Parsing values before calling the update function
+                          int bookingId = int.parse(_bookingIdController.text);
+                          int userId = int.parse(_userIdController.text);
+                          int roomId = int.parse(_roomIdController.text);
+                          String checkInDate = _checkInDateController.text;
+                          String checkOutDate = _checkOutDateController.text;
+                          double totalPrice = double.parse(_totalPriceController.text);
+                          String status = _statusController.text;
 
-                  // Make sure that parsing was successful by checking against default values
-                  if (userId == 0 || roomId == 0 || totalPrice == 0.0) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                          content: Text(
-                              'Please enter valid numbers for User ID, Room ID, and Total Price')),
-                    );
-                    return;
-                  }
-                  _editBooking(
-                    widget.bookingId,
-                    userId,
-                    roomId,
-                    _checkInDateController.text,
-                    _checkOutDateController.text,
-                    totalPrice,
-                    _statusController.text,
-                  ).then((_) {
-                    // Handle success or error here, if necessary
-                    Navigator.of(context)
-                        .pop(); // Assuming you want to pop on success
-                  }).catchError((error) {
-                    // Handle error
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Error updating Booking: $error')),
-                    );
-                  });
-                }
-              },
-              child: const Text('Save'),
+                          _editBooking(
+                              bookingId, userId, roomId, checkInDate, checkOutDate, totalPrice, status);
+                        }
+                      },
+                      child: const Text('Save'),
+                    ),
+                  ],
+                ),
+              ),
             ),
-          ],
+          ),
         ),
       ),
     );
