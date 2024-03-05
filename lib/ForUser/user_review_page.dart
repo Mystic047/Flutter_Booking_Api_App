@@ -9,7 +9,8 @@ class UserReviewHoteldataPage extends StatefulWidget {
   const UserReviewHoteldataPage({Key? key}) : super(key: key);
 
   @override
-  State<UserReviewHoteldataPage> createState() => _UserReviewHoteldataPageState();
+  State<UserReviewHoteldataPage> createState() =>
+      _UserReviewHoteldataPageState();
 }
 
 class _UserReviewHoteldataPageState extends State<UserReviewHoteldataPage> {
