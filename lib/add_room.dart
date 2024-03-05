@@ -108,7 +108,7 @@ class _AddhotelState extends State<Addroom> {
 
   @override
   Widget build(BuildContext context) {
-    const String appTitle = 'Add Hotel';
+    const String appTitle = 'Add Rooms';
 
     return MaterialApp(
       home: Scaffold(
@@ -119,54 +119,68 @@ class _AddhotelState extends State<Addroom> {
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
-        body: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(20.0),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  DropdownButtonFormField<String>(
-                    value: _selectedHotelId,
-                    onChanged: (newValue) {
-                      setState(() {
-                        _selectedHotelId = newValue;
-                      });
-                    },
-                    items: _hotels.map<DropdownMenuItem<String>>((hotel) {
-                      return DropdownMenuItem<String>(
-                        value: hotel['hotel_id'].toString(),
-                        child: Text(hotel['hotel_id'].toString()),
-                      );
-                    }).toList(),
-                   
-                    decoration:
-                        const InputDecoration(labelText: 'Select Hotel'),
-                        
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/room.jpg'),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Center(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(20.0),
+              child: Card(
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        DropdownButtonFormField<String>(
+                          value: _selectedHotelId,
+                          onChanged: (newValue) {
+                            setState(() {
+                              _selectedHotelId = newValue;
+                            });
+                          },
+                          items: _hotels.map<DropdownMenuItem<String>>((hotel) {
+                            return DropdownMenuItem<String>(
+                              value: hotel['hotel_id'].toString(),
+                              child: Text(hotel['hotel_id'].toString()),
+                            );
+                          }).toList(),
+                          decoration:
+                              const InputDecoration(labelText: 'Select Hotel'),
+                        ),
+                        TextFormField(
+                          controller: _number_of_roomsController,
+                          decoration: const InputDecoration(
+                              labelText: 'Number of room'),
+                        ),
+                        TextFormField(
+                          controller: _typeController,
+                          decoration:
+                              const InputDecoration(labelText: 'Type'),
+                        ),
+                        TextFormField(
+                          controller: _amenitiesController,
+                          decoration:
+                              const InputDecoration(labelText: 'amenities'),
+                        ),
+                        TextFormField(
+                          controller: _priceController,
+                          decoration:
+                              const InputDecoration(labelText: 'price'),
+                        ),
+                        ElevatedButton(
+                          onPressed: submitRoomData,
+                          child: const Text('Submit'),
+                        ),
+                      ],
+                    ),
                   ),
-                  TextFormField(
-                    controller: _number_of_roomsController,
-                    decoration:
-                        const InputDecoration(labelText: 'Number of room'),
-                  ),
-                  TextFormField(
-                    controller: _typeController,
-                    decoration: const InputDecoration(labelText: 'Type'),
-                  ),
-                  TextFormField(
-                    controller: _amenitiesController,
-                    decoration: const InputDecoration(labelText: 'amenities'),
-                  ),
-                  TextFormField(
-                    controller: _priceController,
-                    decoration: const InputDecoration(labelText: 'price'),
-                  ),
-                  // Add other fields similarly...
-                  ElevatedButton(
-                    onPressed: submitRoomData,
-                    child: const Text('Submit'),
-                  ),
-                ],
+                ),
               ),
             ),
           ),
