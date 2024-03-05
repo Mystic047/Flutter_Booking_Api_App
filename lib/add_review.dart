@@ -83,79 +83,100 @@ class _ReviewFormState extends State<ReviewForm> {
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
-        body: Form(
-          key: _formKey,
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: <Widget>[
-                TextFormField(
-                  controller: _reviewIdController,
-                  decoration: const InputDecoration(labelText: 'Review ID'),
-                  keyboardType: TextInputType.number,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter Review ID';
-                    }
-                    return null;
-                  },
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(
+                  'https://amazingthaisea.com/wp-content/uploads/2014/05/3-1.jpg'),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Card(
+                color: Colors.white.withOpacity(0.8), // ทำให้สีสว่างลงเล็กน้อย
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: <Widget>[
+                        TextFormField(
+                          controller: _reviewIdController,
+                          decoration:
+                              const InputDecoration(labelText: 'Review ID'),
+                          keyboardType: TextInputType.number,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter Review ID';
+                            }
+                            return null;
+                          },
+                        ),
+                        TextFormField(
+                          controller: _hotelIdController,
+                          decoration:
+                              const InputDecoration(labelText: 'HotelID'),
+                          keyboardType: TextInputType.number,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter Hotel ID';
+                            }
+                            return null;
+                          },
+                        ),
+                        TextFormField(
+                          controller: _userIdController,
+                          decoration:
+                              const InputDecoration(labelText: 'UserID'),
+                          keyboardType: TextInputType.number,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter User ID';
+                            }
+                            return null;
+                          },
+                        ),
+                        TextFormField(
+                          controller: _ratingController,
+                          decoration:
+                              const InputDecoration(labelText: 'Rating'),
+                          keyboardType: TextInputType.number,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter Rating';
+                            }
+                            return null;
+                          },
+                        ),
+                        TextFormField(
+                          controller: _commentController,
+                          decoration:
+                              const InputDecoration(labelText: 'Comment'),
+                          keyboardType: TextInputType.text,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter Comment ';
+                            }
+                            return null;
+                          },
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            // Validate returns true if the form is valid, or false otherwise.
+                            if (_formKey.currentState!.validate()) {
+                              // Send the data to the server.
+                              submitReview();
+                            }
+                          },
+                          child: const Text('Submit Review'),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-                TextFormField(
-                  controller: _hotelIdController,
-                  decoration: const InputDecoration(labelText: 'HotelID'),
-                  keyboardType: TextInputType.number,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter Hotel ID';
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  controller: _userIdController,
-                  decoration: const InputDecoration(labelText: 'UserID'),
-                  keyboardType: TextInputType.number,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter User ID';
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  controller: _ratingController,
-                  decoration: const InputDecoration(labelText: 'Rating'),
-                  keyboardType: TextInputType.number,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter Rating';
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  controller: _commentController,
-                  decoration: const InputDecoration(labelText: 'Comment'),
-                  keyboardType: TextInputType.text,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter Comment ';
-                    }
-                    return null;
-                  },
-                ),
-                // ... Repeat for other fields using their respective controllers
-                ElevatedButton(
-                  onPressed: () {
-                    // Validate returns true if the form is valid, or false otherwise.
-                    if (_formKey.currentState!.validate()) {
-                      // Send the data to the server.
-                      submitReview();
-                    }
-                  },
-                  child: const Text('Submit Review'),
-                ),
-              ],
+              ),
             ),
           ),
         ),

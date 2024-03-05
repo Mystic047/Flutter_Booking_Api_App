@@ -114,86 +114,108 @@ class _BookingDataPageState extends State<BookingDataPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Book a Room'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.of(context).pop(),
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: const Text('Book a Room'),
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back),
+        onPressed: () => Navigator.of(context).pop(),
+      ),
+    ),
+    body: Container(
+      constraints: BoxConstraints.expand(), // กำหนดให้ Container เต็มจอ
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: NetworkImage(
+              'https://mamounia.com/media/cache/jadro_resize/rc/degcR8iu1706018528/jadroRoot/medias/653fcee154467/6540e50e0c796/6540e5783a736/accueil-salon.jpeg'),
+          fit: BoxFit.cover,
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: checkInDateController,
-                      decoration: const InputDecoration(
-                        labelText: 'Check-in Date',
-                        suffixIcon: Icon(Icons.calendar_today),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      child: Card(
+                        color: Colors.white.withOpacity(0.8),
+                        child: TextFormField(
+                          controller: checkInDateController,
+                          decoration: const InputDecoration(
+                            labelText: 'Check-in Date',
+                            suffixIcon: Icon(Icons.calendar_today),
+                          ),
+                          readOnly: true,
+                          onTap: () async {
+                            await _selectDate(
+                                context, checkInDateController);
+                            if (checkInDateController.text.isNotEmpty &&
+                                checkOutDateController.text.isNotEmpty) {
+                              await _fetchAvailableRooms();
+                            }
+                          },
+                        ),
                       ),
-                      readOnly: true,
-                      onTap: () async {
-                        await _selectDate(context, checkInDateController);
-                        if (checkInDateController.text.isNotEmpty &&
-                            checkOutDateController.text.isNotEmpty) {
-                          await _fetchAvailableRooms();
-                        }
-                      },
                     ),
-                  ),
-                  const SizedBox(width: 8.0),
-                  Expanded(
-                    child: TextFormField(
-                      controller: checkOutDateController,
-                      decoration: const InputDecoration(
-                        labelText: 'Check-out Date',
-                        suffixIcon: Icon(Icons.calendar_today),
+                    const SizedBox(width: 8.0),
+                    Expanded(
+                      child: Card(
+                        color: Colors.white.withOpacity(0.8),
+                        child: TextFormField(
+                          controller: checkOutDateController,
+                          decoration: const InputDecoration(
+                            labelText: 'Check-out Date',
+                            suffixIcon: Icon(Icons.calendar_today),
+                          ),
+                          readOnly: true,
+                          onTap: () async {
+                            await _selectDate(
+                                context, checkOutDateController);
+                            if (checkInDateController.text.isNotEmpty &&
+                                checkOutDateController.text.isNotEmpty) {
+                              await _fetchAvailableRooms();
+                            }
+                          },
+                        ),
                       ),
-                      readOnly: true,
-                      onTap: () async {
-                        await _selectDate(context, checkOutDateController);
-                        if (checkInDateController.text.isNotEmpty &&
-                            checkOutDateController.text.isNotEmpty) {
-                          await _fetchAvailableRooms();
-                        }
-                      },
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 20.0),
-            // Placeholder for room list, replace with your actual room list fetching logic
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: _rooms.length,
-              itemBuilder: (context, index) {
-                final room = _rooms[index];
-                return Card(
-                  margin: const EdgeInsets.symmetric(
-                      horizontal: 12.0, vertical: 6.0),
-                  child: ListTile(
-                    title: Text('Room ID: ${room['room_id']}'),
-                    subtitle: Text('Price: ${room['price']}'),
-                    trailing: ElevatedButton(
-                      onPressed: () => _bookRoom(
-                          room['room_id'].toString(), room['price'].toString()),
-                      child: const Text('Book'),
+              const SizedBox(height: 20.0),
+              // Placeholder for room list, replace with your actual room list fetching logic
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: _rooms.length,
+                itemBuilder: (context, index) {
+                  final room = _rooms[index];
+                  return Card(
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 12.0, vertical: 6.0),
+                    child: ListTile(
+                      title: Text('Room ID: ${room['room_id']}'),
+                      subtitle: Text('Price: ${room['price']}'),
+                      trailing: ElevatedButton(
+                        onPressed: () => _bookRoom(room['room_id'].toString(),
+                            room['price'].toString()),
+                        child: const Text('Book'),
+                      ),
                     ),
-                  ),
-                );
-              },
-            ),
-          ],
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
+
 }
