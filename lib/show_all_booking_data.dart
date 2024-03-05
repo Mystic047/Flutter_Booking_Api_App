@@ -30,10 +30,10 @@ class _BookingdataPageShowState extends State<BookingdataPageShow> {
         });
       } else {
         debugPrint(
-            'Failed to load hotel data with status code: ${response.statusCode}');
+            'Failed to load booking data with status code: ${response.statusCode}');
       }
     } catch (e) {
-      debugPrint('Error fetching hotel data: $e');
+      debugPrint('Error fetching booking data: $e');
     }
   }
 
@@ -43,16 +43,16 @@ class _BookingdataPageShowState extends State<BookingdataPageShow> {
     try {
       var response = await http.delete(url);
       if (response.statusCode == 200) {
-        debugPrint('Hotel deleted successfully');
+        debugPrint('Booking deleted successfully');
         setState(() {
           _booking.removeWhere((booking) => booking['booking_id'] == bookingID);
         });
       } else {
         debugPrint(
-            'Failed to delete hotel with status code: ${response.statusCode}');
+            'Failed to delete booking with status code: ${response.statusCode}');
       }
     } catch (e) {
-      debugPrint('Error deleting hotel: $e');
+      debugPrint('Error deleting booking: $e');
     }
   }
 
@@ -73,47 +73,65 @@ class _BookingdataPageShowState extends State<BookingdataPageShow> {
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      body: ListView.builder(
-        itemCount: _booking.length,
-        itemBuilder: (context, index) {
-          var bookings = _booking[index];
-          return ListTile(
-            title: Text(
-                ' Booking ID : ${bookings['booking_id']} User ID : ${bookings['user_id']} Room ID :${bookings['room_id']}'),
-            subtitle: Text(
-                'check in date : ${formatDateString(bookings['check_in_date'])} check out date : ${formatDateString(bookings['check_out_date'])}'),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                IconButton(
-                  icon: const Icon(Icons.edit, color: Colors.orange),
-                  onPressed: () async {
-                    await Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => BookingEditPage(
-                          bookingId: bookings['booking_id'],
-                          userId: bookings['user_id'],
-                          roomId: bookings['room_id'],
-                          checkInDate: bookings['check_in_date'],
-                          checkOutDate: bookings['check_out_date'],
-                          totalPrice: bookings['total_price'] != null
-                              ? bookings['total_price'].toDouble()
-                              : 0.0,
-                          status: bookings['status'],
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage(
+                'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/22/25/ce/ea/kingsford-hotel-manila.jpg?w=1200&h=-1&s=1'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0), // Add padding around the list for spacing
+          child: ListView.builder(
+            itemCount: _booking.length,
+            itemBuilder: (context, index) {
+              var bookings = _booking[index];
+              return Card(
+                margin: const EdgeInsets.symmetric(vertical: 8.0), // Add spacing between each card
+                child: Container(
+                  color: Colors.white.withOpacity(0.8), // Semi-transparent overlay
+                  child: ListTile(
+                    title: Text(
+                        'Booking ID : ${bookings['booking_id']} User ID : ${bookings['user_id']} Room ID :${bookings['room_id']}'),
+                    subtitle: Text(
+                        'check in date : ${formatDateString(bookings['check_in_date'])} check out date : ${formatDateString(bookings['check_out_date'])}'),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        IconButton(
+                          icon: const Icon(Icons.edit, color: Colors.orange),
+                          onPressed: () async {
+                            await Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => BookingEditPage(
+                                  bookingId: bookings['booking_id'],
+                                  userId: bookings['user_id'],
+                                  roomId: bookings['room_id'],
+                                  checkInDate: bookings['check_in_date'],
+                                  checkOutDate: bookings['check_out_date'],
+                                  totalPrice: bookings['total_price'] != null
+                                      ? bookings['total_price'].toDouble()
+                                      : 0.0,
+                                  status: bookings['status'],
+                                ),
+                              ),
+                            );
+                            _fetchbookingData(); // Refresh the entire list
+                          },
                         ),
-                      ),
-                    );
-                    _fetchbookingData(); // Refresh the entire list
-                  },
+                        IconButton(
+                          icon: const Icon(Icons.delete, color: Colors.red),
+                          onPressed: () => _deleteBooking(bookings['booking_id']),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-                IconButton(
-                  icon: const Icon(Icons.delete, color: Colors.red),
-                  onPressed: () => _deleteBooking(bookings['booking_id']),
-                ),
-              ],
-            ),
-          );
-        },
+              );
+            },
+          ),
+        ),
       ),
     );
   }
