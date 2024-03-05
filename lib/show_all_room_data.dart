@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'edit_room.dart';
-// ignore: unused_import
-import 'edit_hotel.dart';
 
 class RoomdataPage extends StatefulWidget {
   const RoomdataPage({Key? key}) : super(key: key);
@@ -30,8 +28,7 @@ class _RoomdataPageState extends State<RoomdataPage> {
           _rooms = json.decode(response.body);
         });
       } else {
-        debugPrint(
-            'Failed to load hotel data with status code: ${response.statusCode}');
+        debugPrint('Failed to load room data with status code: ${response.statusCode}');
       }
     } catch (e) {
       debugPrint('Error fetching room data: $e');
@@ -39,21 +36,19 @@ class _RoomdataPageState extends State<RoomdataPage> {
   }
 
   Future<void> _deleteRoom(int roomId) async {
-    var url = Uri.parse(
-        'http://localhost:3000/api_delete/deleteroom?room_id=$roomId');
+    var url = Uri.parse('http://localhost:3000/api_delete/deleteroom?room_id=$roomId');
     try {
       var response = await http.delete(url);
       if (response.statusCode == 200) {
-        debugPrint('Hotel deleted successfully');
+        debugPrint('Room deleted successfully');
         setState(() {
           _rooms.removeWhere((room) => room['room_id'] == roomId);
         });
       } else {
-        debugPrint(
-            'Failed to delete hotel with status code: ${response.statusCode}');
+        debugPrint('Failed to delete room with status code: ${response.statusCode}');
       }
     } catch (e) {
-      debugPrint('Error deleting hotel: $e');
+      debugPrint('Error deleting room: $e');
     }
   }
 
@@ -67,59 +62,57 @@ class _RoomdataPageState extends State<RoomdataPage> {
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      body: ListView.builder(
-        itemCount: _rooms.length,
-        itemBuilder: (context, index) {
-          var room = _rooms[index];
-          return ListTile(
-            title:
-                Text('${room['room_id']} - ${room['type']} - ${room['price']}'),
-            subtitle: Text('${room['number_of_rooms']}'),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                IconButton(
-                  icon: const Icon(Icons.edit, color: Colors.orange),
-                  onPressed: () async {
-                    double getPrice(
-                      dynamic price,
-                    ) {
-                      if (price is int) {
-                        return price.toDouble();
-                      } else if (price is double) {
-                        return price;
-                      } else {
-                        // Handle the case where rating is not a number.
-                        // You may want to throw an error or return a default value.
-                        return 0.0;
-                      }
-                    }
-
-                    await Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => RoomEditPage(
-                          roomId: room['room_id'],
-                          hotelId: room['hotel_id'],
-                          type: room['type'],
-                          price: getPrice(room['price']),
-                          number_of_rooms: room[
-                              'number_of_rooms'], // Correctly pass the parameter here
-                          amenities: room[
-                              'amenities'], // Correctly pass the parameter here
-                        ),
-                      ),
-                    );
-                    _fetchRoomData(); // Refresh the entire list
-                  },
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage(
+                'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/22/25/ce/ea/kingsford-hotel-manila.jpg?w=1200&h=-1&s=1'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: ListView.builder(
+          itemCount: _rooms.length,
+          itemBuilder: (context, index) {
+            var room = _rooms[index];
+            return Card(
+              margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0), // Rounded corners
+              ),
+              child: ListTile(
+                title: Text('${room['room_id']} - ${room['type']} - ${room['price']}'),
+                subtitle: Text('${room['number_of_rooms']}'),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    IconButton(
+                      icon: const Icon(Icons.edit, color: Colors.orange),
+                      onPressed: () async {
+                        await Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => RoomEditPage(
+                              roomId: room['room_id'],
+                              hotelId: room['hotel_id'],
+                              type: room['type'],
+                              price: room['price'] is int ? room['price'].toDouble() : room['price'],
+                              number_of_rooms: room['number_of_rooms'],
+                              amenities: room['amenities'],
+                            ),
+                          ),
+                        );
+                        _fetchRoomData(); // Refresh the list after editing
+                      },
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.delete, color: Colors.red),
+                      onPressed: () => _deleteRoom(room['room_id']),
+                    ),
+                  ],
                 ),
-                IconButton(
-                  icon: const Icon(Icons.delete, color: Colors.red),
-                  onPressed: () => _deleteRoom(room['room_id']),
-                ),
-              ],
-            ),
-          );
-        },
+              ),
+            );
+          },
+        ),
       ),
     );
   }
