@@ -90,97 +90,102 @@ class _ReviewEditPageState extends State<ReviewEditPage> {
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      body: Form(
-        key: _formKey,
-        child: ListView(
-          padding: const EdgeInsets.all(16),
-          children: [
-            TextFormField(
-              controller: _userIdController,
-              decoration: const InputDecoration(labelText: 'User ID'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter an User ID';
-                }
-                return null;
-              },
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage(
+                'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/22/25/ce/ea/kingsford-hotel-manila.jpg?w=1200&h=-1&s=1'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.85),
+              borderRadius: BorderRadius.circular(12),
             ),
-            TextFormField(
-              controller: _hotelIdController,
-              decoration: const InputDecoration(labelText: 'Hotel ID'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a Hotel ID';
-                }
-                return null;
-              },
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Form(
+                key: _formKey,
+                child: ListView(
+                  padding: const EdgeInsets.all(16),
+                  children: [
+                    TextFormField(
+                      controller: _userIdController,
+                      decoration: const InputDecoration(labelText: 'User ID'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter an User ID';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      controller: _hotelIdController,
+                      decoration: const InputDecoration(labelText: 'Hotel ID'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a Hotel ID';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      controller: _reviewIdController,
+                      decoration: const InputDecoration(labelText: 'Reviews ID'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a Reviews ID';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      controller: _commentController,
+                      decoration: const InputDecoration(labelText: 'Comment'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a Comment';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      controller: _ratingController,
+                      decoration: const InputDecoration(labelText: 'Rating'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a Rating';
+                        }
+                        try {
+                          double.parse(value);
+                        } catch (e) {
+                          return 'Please enter a valid number';
+                        }
+                        return null;
+                      },
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          _editReview(
+                            int.tryParse(_userIdController.text) ?? 0,
+                            int.tryParse(_hotelIdController.text) ?? 0,
+                            int.tryParse(_reviewIdController.text) ?? 0,
+                            _commentController.text,
+                            double.tryParse(_ratingController.text) ?? 0.0,
+                          );
+                        }
+                      },
+                      child: const Text('Save'),
+                    ),
+                  ],
+                ),
+              ),
             ),
-            TextFormField(
-              controller: _reviewIdController,
-              decoration: const InputDecoration(labelText: 'Reviews ID'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a Reviews ID';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: _commentController,
-              decoration: const InputDecoration(labelText: 'Comment'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a Comment';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: _ratingController,
-              decoration: const InputDecoration(labelText: 'Rating'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a Rating';
-                }
-                return null;
-              },
-            ),
-            ElevatedButton(
-              onPressed: () {
-                double? rating = double.tryParse(_ratingController.text);
-
-                if (rating == null) {
-                  // Handle the case where the string did not contain a valid double
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                        content: Text('Please enter a valid rating.')),
-                  );
-                  return; // Exit the function if parsing failed
-                }
-                // Validate form first
-                if (_formKey.currentState!.validate()) {
-                  _editReview(
-                    widget.userId,
-                    int.tryParse(_hotelIdController.text) ??
-                        0, // Replace 0 with an appropriate default or error value
-                    int.tryParse(_reviewIdController.text) ??
-                        0, // Replace 0 with an appropriate default or error value
-                    _commentController.text,
-                    rating,
-                  ).then((_) {
-                    // Handle success
-                    Navigator.of(context).pop();
-                  }).catchError((error) {
-                    // Handle error
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Error updating review: $error')),
-                    );
-                  });
-                }
-              },
-              child: const Text('Save'),
-            ),
-          ],
+          ),
         ),
       ),
     );
