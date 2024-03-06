@@ -97,7 +97,7 @@ class _ReviewSubmissionPageState extends State<ReviewSubmissionPage> {
         ),
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: NetworkImage(
               'https://chillpainai.com/src/wewakeup/scoop/images/baf655e2658c0a8e0fd2a06cb25a28673ee6c594.jpg',
@@ -135,7 +135,7 @@ class _ReviewSubmissionPageState extends State<ReviewSubmissionPage> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 12), // Add some space between inputs
+                      const SizedBox(height: 12), // Add some space between inputs
                       TextFormField(
                         controller: _commentController,
                         decoration: const InputDecoration(

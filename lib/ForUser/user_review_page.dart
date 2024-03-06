@@ -59,7 +59,7 @@ class _UserReviewHoteldataPageState extends State<UserReviewHoteldataPage> {
         ),
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: NetworkImage(
               'https://chillpainai.com/src/wewakeup/scoop/images/baf655e2658c0a8e0fd2a06cb25a28673ee6c594.jpg',

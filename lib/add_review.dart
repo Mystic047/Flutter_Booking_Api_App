@@ -84,7 +84,7 @@ class _ReviewFormState extends State<ReviewForm> {
           ),
         ),
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: NetworkImage(
                   'https://amazingthaisea.com/wp-content/uploads/2014/05/3-1.jpg'),

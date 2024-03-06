@@ -120,7 +120,7 @@ class _AddhotelState extends State<Addroom> {
           ),
         ),
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage('assets/images/room.jpg'),
               fit: BoxFit.cover,

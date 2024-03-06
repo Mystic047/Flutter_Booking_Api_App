@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert'; // For using json.encode
 
 class RoomEditPage extends StatefulWidget {
+  // ignore: non_constant_identifier_names
   final int hotelId, roomId, number_of_rooms;
   final String type, amenities;
   final double price;
@@ -11,6 +12,7 @@ class RoomEditPage extends StatefulWidget {
   const RoomEditPage({
     Key? key,
     required this.hotelId,
+    // ignore: non_constant_identifier_names
     required this.number_of_rooms,
     required this.roomId,
     required this.type,
@@ -26,6 +28,7 @@ class _RoomEditPageState extends State<RoomEditPage> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController _hotelIdController,
       _roomIdController,
+      // ignore: non_constant_identifier_names
       _number_of_roomsController,
       _typeController,
       _amenitiesController,
@@ -65,6 +68,7 @@ class _RoomEditPageState extends State<RoomEditPage> {
         if (kDebugMode) {
           print('Room updated successfully.');
         }
+        // ignore: use_build_context_synchronously
         Navigator.of(context).pop(); // Optionally pop the context
       } else {
         if (kDebugMode) {

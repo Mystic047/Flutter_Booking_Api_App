@@ -124,8 +124,8 @@ Widget build(BuildContext context) {
       ),
     ),
     body: Container(
-      constraints: BoxConstraints.expand(), // กำหนดให้ Container เต็มจอ
-      decoration: BoxDecoration(
+      constraints: const BoxConstraints.expand(), // กำหนดให้ Container เต็มจอ
+      decoration: const BoxDecoration(
         image: DecorationImage(
           image: NetworkImage(
               'https://mamounia.com/media/cache/jadro_resize/rc/degcR8iu1706018528/jadroRoot/medias/653fcee154467/6540e50e0c796/6540e5783a736/accueil-salon.jpeg'),
