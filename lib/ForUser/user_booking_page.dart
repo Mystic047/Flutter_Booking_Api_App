@@ -146,7 +146,15 @@ class _UserBookingDataPageState extends State<UserBookingDataPage> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage(
+              'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/22/25/ce/ea/kingsford-hotel-manila.jpg?w=1200&h=-1&s=1',
+            ),
+            fit: BoxFit.cover,
+          ),
+        ),
         child: Column(
           children: [
             Padding(
@@ -155,108 +163,121 @@ class _UserBookingDataPageState extends State<UserBookingDataPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Expanded(
-                    child: TextFormField(
-                      controller: checkInDateController,
-                      decoration: const InputDecoration(
-                        labelText: 'Check-in Date',
-                        suffixIcon: Icon(Icons.calendar_today),
+                    child: Card(
+                      color: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          controller: checkInDateController,
+                          decoration: const InputDecoration(
+                            labelText: 'Check-in Date',
+                            suffixIcon: Icon(Icons.calendar_today),
+                          ),
+                          readOnly: true,
+                          onTap: () async {
+                            await _selectDate(context, checkInDateController);
+                            if (checkInDateController.text.isNotEmpty &&
+                                checkOutDateController.text.isNotEmpty) {
+                              await _fetchAvailableRooms();
+                            }
+                          },
+                        ),
                       ),
-                      readOnly: true,
-                      onTap: () async {
-                        await _selectDate(context, checkInDateController);
-                        if (checkInDateController.text.isNotEmpty &&
-                            checkOutDateController.text.isNotEmpty) {
-                          await _fetchAvailableRooms();
-                        }
-                      },
                     ),
                   ),
                   const SizedBox(width: 8.0),
                   Expanded(
-                    child: TextFormField(
-                      controller: checkOutDateController,
-                      decoration: const InputDecoration(
-                        labelText: 'Check-out Date',
-                        suffixIcon: Icon(Icons.calendar_today),
+                    child: Card(
+                      color: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          controller: checkOutDateController,
+                          decoration: const InputDecoration(
+                            labelText: 'Check-out Date',
+                            suffixIcon: Icon(Icons.calendar_today),
+                          ),
+                          readOnly: true,
+                          onTap: () async {
+                            await _selectDate(context, checkOutDateController);
+                            if (checkInDateController.text.isNotEmpty &&
+                                checkOutDateController.text.isNotEmpty) {
+                              await _fetchAvailableRooms();
+                            }
+                          },
+                        ),
                       ),
-                      readOnly: true,
-                      onTap: () async {
-                        await _selectDate(context, checkOutDateController);
-                        if (checkInDateController.text.isNotEmpty &&
-                            checkOutDateController.text.isNotEmpty) {
-                          await _fetchAvailableRooms();
-                        }
-                      },
                     ),
                   ),
                 ],
               ),
             ),
             const SizedBox(height: 20.0),
-            // Placeholder for room list, replace with your actual room list fetching logic
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: _rooms.length,
-              itemBuilder: (context, index) {
-                final room = _rooms[index];
-                return Card(
-                  margin: const EdgeInsets.symmetric(
-                      horizontal: 12.0, vertical: 6.0),
-                  child: Column(
-                    children: [
-                      // Image from assets
-                      Image.asset(
-                        'assets/images/room.jpg', // Path to your sample image
-                        width: double
-                            .infinity, // Make the image take the full width of the card
-                        height: 200, // Fixed height for the image
-                        fit: BoxFit.cover, // Cover the entire width of the card
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+            Expanded(
+              child: ListView.builder(
+                itemCount: _rooms.length,
+                itemBuilder: (context, index) {
+                  final room = _rooms[index];
+                  return Card(
+                    color: Colors.white,
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 12.0, vertical: 6.0),
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          'assets/images/room.jpg',
+                          width: double.infinity,
+                          height: 200,
+                          fit: BoxFit.cover,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Room ID: ${room['room_id']}',
+                                  style: const TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold)),
+                              const SizedBox(height: 8.0),
+                              Text('Price: ${room['price']}',
+                                  style: const TextStyle(fontSize: 16.0)),
+                              const SizedBox(height: 8.0),
+                              Text('Amenities: ${room['amenities']}',
+                                  style: const TextStyle(fontSize: 16.0)),
+                            ],
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Text('Room ID: ${room['room_id']}',
-                                style: const TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.bold)),
-                            const SizedBox(height: 8.0),
-                            Text('Price: ${room['price']}',
-                                style: const TextStyle(fontSize: 16.0)),
-                            const SizedBox(height: 8.0),
-                            Text('Amenities: ${room['amenities']}',
-                                style: const TextStyle(fontSize: 16.0)),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  right: 12.0, bottom: 12.0),
+                              child: ElevatedButton(
+                                onPressed: () => _bookRoom(
+                                  room['room_id'].toString(),
+                                  room['price'].toString(),
+                                ),
+                                child: const Text('Book'),
+                              ),
+                            ),
                           ],
                         ),
-                      ),
-                      // Button at the bottom right
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                right: 12.0, bottom: 12.0),
-                            child: ElevatedButton(
-                              onPressed: () => _bookRoom(
-                                room['room_id'].toString(),
-                                room['price'].toString(),
-                              ),
-                              child: const Text('Book'),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                );
-              },
+                      ],
+                    ),
+                  );
+                },
+              ),
             ),
           ],
         ),
       ),
     );
   }
+
+
+
 
   void handleMenuClick(String value) {
     switch (value) {
